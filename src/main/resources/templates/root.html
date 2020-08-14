@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:replace="_templates_ :: template-header"/>
+<body>
+<div th:replace="_templates_ :: navbar-root"/>
+
+
+<br>
+<br>
+<div class="container">
+    <h1 class="text-center">Ternak Bromilan</h1>
+</div>
+<br>
+
+<div class="container">
+<!--    <form th:action="@{/}" th:object="${filter}" class="row" method="post">-->
+<!--        <p class="col-sm-1"></p>-->
+<!--        <div class="form-group col-sm-6">-->
+<!--            <input class="form-control" th:field="*{key}" placeholder="Search..." type="text" th:default="null"/>-->
+<!--        </div>-->
+<!--        &lt;!&ndash;        <input class="col-sm-6" type="text" placeholder="Search..." th:field="*{key}"/>&ndash;&gt;-->
+<!--        <div class="form-group col-sm-2">-->
+<!--            <select class="form-control" th:field="*{category}" >-->
+<!--                <option value="All Category">All Category</option>-->
+<!--                <option value="RAM">RAM</option>-->
+<!--                <option value="Processor">Processor</option>-->
+<!--                <option value="VGA">VGA</option>-->
+<!--                <option value="Motherboard">Motherboard</option>-->
+<!--                <option value="Storage">Storage</option>-->
+<!--            </select>-->
+<!--        </div>-->
+<!--        <div class="form-group col-sm-2">-->
+<!--            <input type="submit" class="form-control btn btn-primary" value="Search" />-->
+<!--        </div>-->
+
+<!--    </form>-->
+</div>
+
+<br>
+<!--<div class="container" th:if="${items.isEmpty()}">-->
+<!--    <h5 class="alert" style="font-style: italic;">Oops, you don't have any items.</h5>-->
+<!--</div>-->
+<br>
+
+<!--<div class="container">-->
+<!--    &lt;!&ndash;For Page&ndash;&gt;-->
+<!--    <div th:each="listitem : ${items}" class="page">-->
+<!--        &lt;!&ndash;For Row containing all card&ndash;&gt;-->
+<!--        <div class="row">-->
+<!--            &lt;!&ndash;Card 1&ndash;&gt;-->
+<!--            <div th:each="item : ${listitem}" class="col-sm-4">-->
+<!--                <div class="card card-cascade card-ecommerce wider shadow mb-5 ">-->
+<!--                    &lt;!&ndash;Card image&ndash;&gt;-->
+<!--                    <div class="view view-cascade overlay text-center"> <img class="card-img-top" th:src="'data:image/jpeg;base64,' + ${item.getImageEncoded()}" height="200" width="auto"> <a>-->
+<!--                        <div class="mask rgba-white-slight"></div>-->
+<!--                    </a> </div>-->
+<!--                    &lt;!&ndash;Card Body&ndash;&gt;-->
+<!--                    <div class="card-body card-body-cascade text-center">-->
+<!--                        &lt;!&ndash;Card Title&ndash;&gt;-->
+<!--                        <h4 class="card-title"><strong><a href="" th:text="${item.getTitle()}"></a></strong></h4> &lt;!&ndash; Card Description&ndash;&gt;-->
+<!--                        <p class="card-text" th:text="${item.getDescription()}">This is a Mobile phone with all the advance features and at best price. </p>-->
+<!--                        <p class="card-text">Contact : <span th:text="${item.getEmail()}"> </span></p>-->
+<!--                        <p class="price" >Rp <span th:text="${item.getPrice()}"></span></p>-->
+<!--                        &lt;!&ndash;Card footer&ndash;&gt;-->
+<!--                        <a th:href="@{/login}">-->
+<!--                            <div class="btn-primary btn-lg">-->
+<!--                                Login to Buy-->
+<!--                            </div>-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<div th:replace="_templates_ :: bottom-script"/>
+</body>
+</html>
