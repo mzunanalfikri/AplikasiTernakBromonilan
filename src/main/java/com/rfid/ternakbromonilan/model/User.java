@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
-@Entity(name="Akun")
+@Entity(name="akun")
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class User {
     @Id
