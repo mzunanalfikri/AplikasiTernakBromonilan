@@ -6,11 +6,15 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" th:src="@{../static/style.css}">
+
     <link rel="stylesheet" type="text/css"
           th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}" />
-
-    <title>2ndTechStore</title>
+    <script type="text/javascript"
+            th:src="@{/webjars/jquery/3.5.1/jquery.min.js/}"></script>
+    <script type="text/javascript"
+            th:src="@{/webjars/bootstrap/4.5.0/js/bootstrap.min.js}"></script>
+<!--    <script type="text/javascript" th:src="@{js/main.js}"  src="../static/js/main.js"></script>-->
+    <title>Ternak Bromonilan</title>
 </head>
 
 <body>
@@ -23,7 +27,7 @@
                     <a class="nav-link" th:href="@{/}">Home</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" th:href="@{/MyItem}">Data Sapi</a>
+                    <a class="nav-link" th:href="@{/sapi}">Data Sapi</a>
                 </li>
             </ul>
             <ul class="navbar-nav navbar-right">
@@ -64,6 +68,30 @@
             th:src="@{/webjars/jquery/3.5.1/jquery.min.js/}"></script>
     <script type="text/javascript"
             th:src="@{/webjars/bootstrap/4.5.0/js/bootstrap.min.js}"></script>
+</div>
+
+<div th:fragment="delete-confirmation-popup">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Konfirmasi Hapus Data</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="alert alert-danger">
+                        Anda yakin menghapus data ini?
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <a href =""  class="btn btn-danger"  id="delRef">Hapus</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>

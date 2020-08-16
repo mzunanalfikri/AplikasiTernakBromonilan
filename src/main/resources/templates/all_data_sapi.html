@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<header th:replace="_templates_ :: template-header"/>
+<body>
+
+<div th:replace="_templates_ :: navbar-home"/>
+
+<br>
+<br>
+<div class="container">
+    <h1 class="text-center">Data Sapi Ternak Bromilan</h1>
+</div>
+<br>
+
+<div class="container justify-content-center" th:if="${param.success}">
+    <div class="alert alert-info">Data Sapi Berhasil Ditambah.</div>
+</div>
+
+<div class="container">
+<!--    <form th:action="@{/home}" th:object="${filter}" class="row" method="post">-->
+    <form class="row">
+        <p class="col-sm-1"></p>
+        <div class="form-group col-sm-2">
+            <a class="form-control btn btn-primary" th:href="@{/sapi/add}">Tambah Sapi</a>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <input class="form-control" type="text" placeholder="Cari ID Sapi">
+<!--            <input class="form-control" th:field="*{key}" placeholder="Search..." type="text" th:default="null"/>-->
+        </div>
+
+        <div class="form-group col-sm-2">
+            <input type="submit" class="form-control btn btn-primary" value="Cari" />
+        </div>
+
+    </form>
+</div>
+
+<br>
+<br>
+
+<div class="container" th:if="${dataSapi.isEmpty()}">
+    <h5 class="alert" style="font-style: italic;">Tidak ada data sapi.</h5>
+</div>
+
+<div class="container">
+    <!--For Page-->
+    <div th:each="listitem : ${dataSapi}" class="page">
+        <!--For Row containing all card-->
+        <div class="row">
+            <!--Card 1-->
+            <div th:each="item : ${listitem}" class="col-sm-4">
+                <div class="card card-cascade card-ecommerce wider shadow mb-5 ">
+                    <!--Card image-->
+                    <div class="view view-cascade overlay text-center"> <img class="card-img-top" th:src="'data:image/jpeg;base64,' + ${item.getImageStringEncoded()}" height="200" width="auto"> <a>
+                        <div class="mask rgba-white-slight"></div>
+                    </a> </div>
+                    <!--Card Body-->
+                    <div class="card-body card-body-cascade text-center">
+                        <!--Card Title-->
+                        <h4 class="card-title"><strong><a href="" th:text="'Id : ' + ${item.getId()}"></a></strong></h4> <!-- Card Description-->
+<!--                        <p class="card-text" th:text="${item.getNomorRegistrasiTernak()}">This is a Mobile phone with all the advance features and at best price. </p>-->
+                        <p class="card-text">Nomor Registrasi : <span th:text="${item.getNomorRegistrasiTernak()}"> </span></p>
+                        <p class="card-text">Jenis Sapi : <span th:text="${item.getJenisSapi()}"> </span></p>
+                        <p class="card-text">Kelamin : <span th:text="${item.getJenisKelamin()}"> </span></p>
+<!--                        <p class="price" >Rp <span th:text="${item.getPrice()}"></span></p>-->
+                        <!--Card footer-->
+<!--                        <div th:switch="${item.getEmail().equals(user.getName())}" >-->
+<!--                            <a th:case="${false}" th:href="@{/home/item?id=}+${item.getId()}">-->
+<!--                                <div class="btn-primary btn-lg">-->
+<!--                                    Detail-->
+<!--                                </div>-->
+<!--                            </a>-->
+<!--&lt;!&ndash;                            <div th:case="${true}" class="btn-primary btn-lg">&ndash;&gt;-->
+<!--&lt;!&ndash;                                Your Item&ndash;&gt;-->
+<!--&lt;!&ndash;                            </div>&ndash;&gt;-->
+<!--                        </div>-->
+                        <div >
+                            <a  th:href="@{/sapi/} + ${item.getId()}">
+                                <div class="btn-primary btn-lg">
+                                    Detail
+                                </div>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="_templates_ :: bottom-script"/>
+
+</body>
+</html>

@@ -6,7 +6,13 @@ create table Sapi (
     tanggalLahir date,
     jenisSapi varchar(50),
     jenisKelamin varchar(50),
-    image bytea
+    image bytea,
+    nomorsapi int,
+    tanggalbirahi date[],
+    tanggalib date[],
+    kodestrawsemen varchar(50)[],
+    tanggalbunting date[],
+    tanggalpemeriksaankebuntingan date[]
 );
 
 create table Akun (
@@ -16,46 +22,18 @@ create table Akun (
     password varchar(255)
 );
 
-create table TanggalBirahi (
-    id int,
-    tanggal date,
-    foreign key(id) references Sapi(id)
-);
-
-create table TanggalIB (
-    id int,
-    tanggal date,
-    foreign key(id) references Sapi(id)
-);
-
-create table KodeStrawSemen (
-    id int,
-    kode varchar(50),
-    foreign key(id) references Sapi(id)
-);
-
-create table TanggalBunting (
-    id int,
-    tanggal date,
-    foreign key(id) references Sapi(id)
-);
-
-create table TanggalPemerikasaanKebuntingan (
-    id int,
-    tanggal date,
-    foreign key(id) references Sapi(id)
-);
-
 create table Penyakit (
-    id int,
+    id serial  primary key,
+    idsapi int,
     jenis varchar(50),
     tanggal date,
-    foreign key(id) references Sapi(id)
+    foreign key(idsapi) references Sapi(id)
 );
 
 create table Treatment (
-    id int,
+    id serial  primary key,
+    idsapi int,
     jenis varchar(50),
     tanggal date,
-    foreign key(id) references Sapi(id)
+    foreign key(idsapi) references Sapi(id)
 );

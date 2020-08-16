@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<header th:replace="_templates_ :: template-header"/>
+<head>
+    <script>
+        $(document).ready(function(){
+            $('.table .delBtn').on('click', function(event){
+                event.preventDefault();
+                var href = $(this).attr('href');
+                $('#myModal #delRef').attr('href',href);
+                $('#myModal').modal();
+            });
+        });
+    </script>
+</head>
+<body>
+
+<div th:replace="_templates_ :: navbar-home"/>
+
+<br>
+<br>
+<div class="container">
+    <h1 class="text-center">Data Sapi Ternak Bromilan</h1>
+</div>
+<br>
+
+<div class="container justify-content-center" th:if="${param.success}">
+    <div class="alert alert-info">Data Sapi Berhasil Ditambah.</div>
+</div>
+
+<div class="container justify-content-center" th:if="${param.deletesuccess}">
+    <div class="alert alert-info">Data Sapi Berhasil Dihapus.</div>
+</div>
+
+<div class="container">
+<!--    <form th:action="@{/home}" th:object="${filter}" class="row" method="post">-->
+    <form class="row" th:action="@{/search}" method="post">
+        <p class="col-sm-1"></p>
+        <div class="form-group col-sm-2">
+            <a class="form-control btn btn-primary" th:href="@{/sapi/add}">Tambah Sapi</a>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <input class="form-control" type="text" name="nomorsapi" placeholder="Cari Sapi dengan nomor ...">
+<!--            <input class="form-control" th:field="*{key}" placeholder="Search..." type="text" th:default="null"/>-->
+        </div>
+
+        <div class="form-group col-sm-2">
+            <input type="submit" class="form-control btn btn-primary" value="Cari" />
+        </div>
+
+    </form>
+
+    <div th:if="${!chip.equals(0)}" class="row justify-content-center align-content-center text-center align-items-center align-self-center">
+        <div class="form-group col-sm-3">
+            <a class="form-control btn btn-primary" th:href="@{/searchbychip}">Cari dengan Chip</a>
+        </div>
+        <div class="form-group col-sm-3">
+            <a class="form-control btn btn-primary" th:href="@{/sapi/add}">Tambah dengan Chip</a>
+        </div>
+    </div>
+
+</div>
+
+<br>
+<br>
+
+<div class="container" th:if="${data.isEmpty()}">
+    <h5 class="alert" style="font-style: italic;">Tidak ada data sapi.</h5>
+</div>
+
+
+<div class = "container">
+    <div class="card">
+        <div class="card-block">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>No. Sapi</th>
+                    <th>Foto</th>
+                    <th>Keterangan</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="sapi :${data.getContent()}">
+                    <td th:text="${sapi.getId()}"></td>
+                    <td> <img class="card-img-top" th:src="'data:image/jpeg;base64,' + ${sapi.getImageStringEncoded()}" style="width: 200px; @media only screen and (min-width: 767px) { width: 75px }"> </td>
+                    <td >
+                        <p> Nomor Registrasi : <span th:text="${sapi.getNomorRegistrasiTernak()}"> </span> </p>
+                        <p> Nama Pemilik : <span th:text="${sapi.getNamaPemilik()}"> </span></p>
+                        <p> Jenis Sapi : <span th:text="${sapi.getJenisSapi()}"> </span> </p>
+                    </td>
+                    <td>
+                        <a th:href="@{/sapi/delete/} + ${sapi.getId()}" class="btn btn-danger delBtn">Hapus</a>
+                        <a th:href="@{/sapi/} + ${sapi.getId()}" class="btn btn-primary">Detail</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <hr/>
+
+            <ul class="nav nav-pills">
+                <li class="nav-item"
+                    th:each="i : ${#numbers.sequence(0,data.totalPages - 1)}">
+                    <a th:href="@{/sapi(page=${i})}" th:text="${i + 1}" class="nav-link"
+                       th:classappend="${currentPage}==${i}?'active':''"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div th:replace="_templates_ :: delete-confirmation-popup"/>
+
+<div th:replace="_templates_ :: bottom-script"/>
+
+</body>
+</html>

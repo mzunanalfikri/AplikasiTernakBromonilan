@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<header th:replace="_templates_ :: template-header"/>
+<head>
+    <script>
+        $(document).ready(function(){
+            $('.ePenyakitBtn').on('click', function (event) {
+                $('.penyakitForm #exampleModal').modal();
+            });
+
+            $('.eTreatmentBtn').on('click', function (event) {
+                $('.treatmentForm #exampleModal2').modal();
+            });
+
+            $('.eBirahiBtn').on('click', function (event) {
+                $('.birahiForm #exampleModal3').modal();
+            });
+
+            $('.eIbBtn').on('click', function (event) {
+                $('.buntingForm #exampleModal4').modal();
+            });;
+
+            $('.eBuntingBtn').on('click', function (event) {
+                $('.buntingForm #exampleModal5').modal();
+            });
+
+            $('.ePemeriksaanKebuntinganBtn').on('click', function (event) {
+                $('.pemeriksaanKebuntinganForm #exampleModal6').modal();
+            });
+
+            $('.eKSSBtn').on('click', function (event) {
+                $('.kodestrawsemenForm #exampleModal7').modal();
+            });
+
+            $('.table .delBtn').on('click', function(event){
+                event.preventDefault();
+                var href = $(this).attr('href');
+                $('#myModal #delRef').attr('href',href);
+                $('#myModal').modal();
+            });
+        });
+    </script>
+</head>
+<body>
+
+<div th:replace="_templates_ :: navbar-home"/>
+
+<br>
+<br>
+<div class="container">
+    <h1 class="text-center">Detail Data Sapi <span th:text="${id}"> </span></h1>
+</div>
+<br>
+<br>
+
+<!--Detail data sapi-->
+<div class="container">
+    <p style="text-align: center"> <img class="card-img-top align-content-center" th:src="'data:image/jpeg;base64,' + ${sapi.getImageStringEncoded()}" style="width: 30%"> </p>
+    <p>Nomor Sapi : <span th:text="${sapi.getNomorSapi()}"></span></p>
+    <p>Nomor Registrasi Ternak : <span th:text="${sapi.getNomorRegistrasiTernak()}"></span></p>
+    <p>Tanggal Tulis : <span th:text="${sapi.dateToString(sapi.getTanggalTulis())}"></span></p>
+    <p>Nama Pemilik : <span th:text="${sapi.getNamaPemilik()}"></span></p>
+    <p>Jenis Sapi : <span th:text="${sapi.getJenisSapi()}"></span></p>
+    <p>Jenis Kelamin Sapi : <span th:text="${sapi.getJenisKelamin()}"></span></p>
+    <p>Umur Sapi : <span th:text="${sapi.getUmurSapi()}"></span></p>
+</div>
+
+
+<div class = "container">
+    <!--    Kode Straw Semen-->
+    <h4 class="text-center"> Kode Straw Semen <a class="btn btn-primary justify-content-center eKSSBtn">Tambah Data</a> </h4>
+    <div class="card">
+        <div class="card-block">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Kode Straw Semen</th>
+                    <th>Aksi</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${sapi.getKodeStrawSemen().isEmpty()}">
+                    <td colspan="3" style="text-align: center"> <i>Data Kode Straw Semen Kosong.</i></td>
+                </tr>
+                <tr th:each="i : ${#numbers.sequence(0, (sapi.getKodeStrawSemen().size()-1) , 1)}">
+                    <td th:text="${i + 1}"></td>
+                    <td th:text="${sapi.getKodeStrawSemen().get(i)}"></td>
+                    <td>
+                        <a  th:href="@{/kodestrawsemen/delete?id=} + ${sapi.getId()} + '&kodeStrawSemen=' + ${sapi.getKodeStrawSemen().get(i)}" class="btn-sm btn-danger delBtn">Hapus</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+
+    <!--    Tanggal Birahi-->
+    <h4 class="text-center"> Data Tanggal Birahi Sapi <a class="btn btn-primary justify-content-center eBirahiBtn">Tambah Data</a> </h4>
+    <div class="card">
+        <div class="card-block">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Tanggal Birahi</th>
+                    <th>Aksi</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${sapi.getTanggalBirahi().isEmpty()}">
+                    <td colspan="3" style="text-align: center"> <i>Data Birahi Kosong.</i></td>
+                </tr>
+                <tr th:each="i : ${#numbers.sequence(0, (sapi.getTanggalBirahi().size()-1) , 1)}">
+                    <td th:text="${i + 1}"></td>
+                    <td th:text="${sapi.dateToString(sapi.getTanggalBirahi().get(i))}"></td>
+                    <td>
+                        <a  th:href="@{/tanggalbirahi/delete?id=} + ${sapi.getId()} + '&tanggalBirahi=' + ${sapi.getTanggalBirahi().get(i)}" class="btn-sm btn-danger delBtn">Hapus</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+
+    <!--    Tanggal IB-->
+    <h4 class="text-center"> Data Tanggal IB Sapi <a class="btn btn-primary justify-content-center eIbBtn">Tambah Data</a> </h4>
+    <div class="card">
+        <div class="card-block">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Tanggal IB</th>
+                    <th>Aksi</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${sapi.getTanggalIB().isEmpty()}">
+                    <td colspan="3" style="text-align: center"> <i>Data IB Kosong.</i></td>
+                </tr>
+                <tr th:each="i : ${#numbers.sequence(0, (sapi.getTanggalIB().size()-1) , 1)}">
+                    <td th:text="${i + 1}"></td>
+                    <td th:text="${sapi.dateToString(sapi.getTanggalIB().get(i))}"></td>
+                    <td>
+                        <a  th:href="@{/tanggalib/delete?id=} + ${sapi.getId()} + '&tanggalIB=' + ${sapi.getTanggalIB().get(i)}" class="btn-sm btn-danger delBtn">Hapus</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+
+    <!--    Tanggal Bunting-->
+    <h4 class="text-center"> Data Tanggal Bunting Sapi <a class="btn btn-primary justify-content-center eBuntingBtn">Tambah Data</a> </h4>
+    <div class="card">
+        <div class="card-block">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Tanggal Bunting</th>
+                    <th>Aksi</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${sapi.getTanggalBunting().isEmpty()}">
+                    <td colspan="3" style="text-align: center"> <i>Data Bunting Kosong.</i></td>
+                </tr>
+                <tr th:each="i : ${#numbers.sequence(0, (sapi.getTanggalBunting().size()-1) , 1)}">
+                    <td th:text="${i + 1}"></td>
+                    <td th:text="${sapi.dateToString(sapi.getTanggalBunting().get(i))}"></td>
+                    <td>
+                        <a  th:href="@{/tanggalbunting/delete?id=} + ${sapi.getId()} + '&tanggalBunting=' + ${sapi.getTanggalBunting().get(i)}" class="btn-sm btn-danger delBtn">Hapus</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+
+    <!--    Tanggal Pemeriksaan Kebuntingan-->
+    <h4 class="text-center"> Data Tanggal Pemeriksaan Kebuntingan <a class="btn btn-primary justify-content-center ePemeriksaanKebuntinganBtn">Tambah Data</a> </h4>
+    <div class="card">
+        <div class="card-block">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Tanggal Pemeriksaan Kebunttingan</th>
+                    <th>Aksi</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${sapi.getTanggalPemeriksaanKebuntingan().isEmpty()}">
+                    <td colspan="3" style="text-align: center"> <i>Data Pemeriksaan Kebuntingan Kosong.</i></td>
+                </tr>
+                <tr th:each="i : ${#numbers.sequence(0, (sapi.getTanggalPemeriksaanKebuntingan().size()-1) , 1)}">
+                    <td th:text="${i + 1}"></td>
+                    <td th:text="${sapi.dateToString(sapi.getTanggalPemeriksaanKebuntingan().get(i))}"></td>
+                    <td>
+                        <a  th:href="@{/tanggalpemeriksaankebuntingan/delete?id=} + ${sapi.getId()} + '&tanggalPemeriksaanKebuntingan=' + ${sapi.getTanggalPemeriksaanKebuntingan().get(i)}" class="btn-sm btn-danger delBtn">Hapus</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+
+    <!--TABEL PENYAKIT-->
+    <h4 class="text-center"> Data Penyakit Sapi    <a class="btn btn-primary justify-content-center ePenyakitBtn">Tambah Penyakit</a> </h4>
+    <div class="card">
+        <div class="card-block">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Jenis Penyakit</th>
+                    <th>Tanggal Penyakit</th>
+                    <th>Aksi</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${list_penyakit.isEmpty()}">
+                    <td colspan="3" style="text-align: center"> <i>Data Penyakit Kosong.</i></td>
+                </tr>
+                <tr th:each="penyakit :${list_penyakit}">
+                    <td th:text="${penyakit.getJenis()}"></td>
+                    <td th:text="${sapi.dateToString(penyakit.getTanggal())}"></td>
+                    <td>
+                        <a th:href="@{/penyakit/delete?id=} + ${penyakit.getId()} + '&idsapi=' + ${penyakit.getIdsapi()}" class="btn-sm btn-danger delBtn">Hapus</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+
+    <!--TABEL Treatment-->
+    <h4 class="text-center"> Data Treatment Sapi    <a class="btn btn-primary justify-content-center eTreatmentBtn">Tambah Treatment</a> </h4>
+    <div class="card">
+        <div class="card-block">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <!--            <th>No</th>-->
+                    <th>Jenis Treatment</th>
+                    <th>Tanggal Treatment</th>
+                    <th>Aksi</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${list_treatment.isEmpty()}">
+                    <td colspan="3" style="text-align: center"> <i>Data Treatment Kosong.</i></td>
+                </tr>
+                <tr th:each="treatment :${list_treatment}">
+                    <td th:text="${treatment.getJenis()}"></td>
+                    <td th:text="${sapi.dateToString(treatment.getTanggal())}"></td>
+                    <td>
+                        <a th:href="@{/treatment/delete?id=} + ${treatment.getId()} + '&idsapi=' + ${treatment.getIdsapi()}" class="btn-sm btn-danger delBtn">Hapus</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="penyakitForm">
+        <form  th:action="@{/penyakit/add/} + ${sapi.getId()}" method="post">
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Tambah data penyakit</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                <label for="jenispenyakit" class="form-control-label">Jenis Penyakit:</label>
+                                <input type="text" class="form-control" id="jenispenyakit" name="jenispenyakit" value="" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tanggalpenyakit" class="form-control-label">Tanggal Penyakit:</label>
+                                <input type="date" class="form-control" id="tanggalpenyakit" name="tanggalpenyakit" value="" />
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                            <input type="submit" class="btn btn-primary" value="Simpan" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="treatmentForm">
+        <form  th:action="@{/treatment/add/} + ${sapi.getId()}" method="post">
+            <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel2">Tambah data treatment</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                <label for="jenistreatment" class="form-control-label">Jenis Treatment:</label>
+                                <input type="text" class="form-control" id="jenistreatment" name="jenistreatment" value="" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tanggaltreatment" class="form-control-label">Tanggal Treatment:</label>
+                                <input type="date" class="form-control" id="tanggaltreatment" name="tanggaltreatment" value="" />
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                            <input type="submit" class="btn btn-primary" value="Simpan" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="birahiForm">
+        <form  th:action="@{/tanggalbirahi/add/} + ${sapi.getId()}" method="post">
+            <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel3" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel3">Tambah data tanggal birahi</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                <label for="tanggalbirahi" class="form-control-label">Tanggal Birahi:</label>
+                                <input type="date" class="form-control" id="tanggalbirahi" name="tanggalbirahi" value="" />
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                            <input type="submit" class="btn btn-primary" value="Simpan" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="ibForm">
+        <form  th:action="@{/tanggalib/add/} + ${sapi.getId()}" method="post">
+            <div class="modal fade" id="exampleModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel4" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel4">Tambah data tanggal IB</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                <label for="tanggalib" class="form-control-label">Tanggal IB:</label>
+                                <input type="date" class="form-control" id="tanggalib" name="tanggalib" value="" />
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                            <input type="submit" class="btn btn-primary" value="Simpan" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="buntingForm">
+        <form  th:action="@{/tanggalbunting/add/} + ${sapi.getId()}" method="post">
+            <div class="modal fade" id="exampleModal5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel5" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel5">Tambah data tanggal bunting</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                <label for="tanggalbunting" class="form-control-label">Tanggal Bunting:</label>
+                                <input type="date" class="form-control" id="tanggalbunting" name="tanggalbunting" value="" />
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                            <input type="submit" class="btn btn-primary" value="Simpan" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="pemeriksaanKebuntinganForm">
+        <form  th:action="@{/tanggalpemeriksaankebuntingan/add/} + ${sapi.getId()}" method="post">
+            <div class="modal fade" id="exampleModal6" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel6" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel6">Tambah data tanggal Pemeriksaan Kebuntingan</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                <label for="tanggalpk" class="form-control-label">Tanggal Pemeriksaan Kebuntingan:</label>
+                                <input type="date" class="form-control" id="tanggalpk" name="tanggalpemeriksaankebuntingan" value="" />
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                            <input type="submit" class="btn btn-primary" value="Simpan" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="kodestrawsemenForm">
+        <form  th:action="@{/kodestrawsemen/add/} + ${sapi.getId()}" method="post">
+            <div class="modal fade" id="exampleModal7" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel7" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel7">Tambah data kode straw semen</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                <label for="kss" class="form-control-label">Kode Straw Semen:</label>
+                                <input type="text" class="form-control" id="kss" name="kodestrawsemen" value="" />
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                            <input type="submit" class="btn btn-primary" value="Simpan" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<div th:replace="_templates_ :: delete-confirmation-popup"/>
+
+<div th:replace="_templates_ :: bottom-script"/>
+
+</body>
+</html>
