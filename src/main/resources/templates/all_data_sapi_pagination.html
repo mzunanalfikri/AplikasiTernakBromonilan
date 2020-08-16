@@ -21,7 +21,7 @@
 <br>
 <br>
 <div class="container">
-    <h1 class="text-center">Data Sapi Ternak Bromilan</h1>
+    <h1 class="text-center">Data Sapi Ternak Bromonilan</h1>
 </div>
 <br>
 
@@ -80,12 +80,12 @@
                     <th>No. Sapi</th>
                     <th>Foto</th>
                     <th>Keterangan</th>
-                    <th>Action</th>
+                    <th>Aksi</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="sapi :${data.getContent()}">
-                    <td th:text="${sapi.getId()}"></td>
+                    <td th:text="${sapi.getNomorSapi()}"></td>
                     <td> <img class="card-img-top" th:src="'data:image/jpeg;base64,' + ${sapi.getImageStringEncoded()}" style="width: 200px; @media only screen and (min-width: 767px) { width: 75px }"> </td>
                     <td >
                         <p> Nomor Registrasi : <span th:text="${sapi.getNomorRegistrasiTernak()}"> </span> </p>
