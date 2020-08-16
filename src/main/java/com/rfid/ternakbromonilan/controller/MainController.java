@@ -90,6 +90,7 @@ public class MainController {
         SapiDto sapiDto = new SapiDto();
         if (chipid != 0){
             sapiDto.setNomorSapi(chipid.longValue());
+            chipid = 0;
         }
         model.addAttribute("sapi", sapiDto);
         return "add_data_sapi";
