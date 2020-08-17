@@ -86,13 +86,27 @@ public class MainController {
     }
 
     @GetMapping("/sapi/add")
-    public String addDataSapi(Model model){
+    public String addDataSapi(Model model, @RequestParam(required = false) Long id){
         SapiDto sapiDto = new SapiDto();
+        boolean edit = false;
         if (chipid != 0){
             sapiDto.setNomorSapi(chipid.longValue());
             chipid = 0;
         }
+        if (id != null){
+            Sapi sapi = sapiRepository.findById(id).get();
+            sapiDto.setId_temp(sapi.getId());
+            sapiDto.setNomorSapi(sapi.getNomorSapi());
+            sapiDto.setTanggalTulis(sapi.getTanggalTulis());
+            sapiDto.setJenisKelamin(sapi.getJenisKelamin());
+            sapiDto.setJenisSapi(sapi.getJenisSapi());
+            sapiDto.setNamaPemilik(sapi.getNamaPemilik());
+            sapiDto.setNomorRegistrasiTernak(sapi.getNomorRegistrasiTernak());
+            sapiDto.setTanggalLahir(sapi.getTanggalLahir());
+            edit = true;
+        }
         model.addAttribute("sapi", sapiDto);
+        model.addAttribute("edit", edit);
         return "add_data_sapi";
     }
 
@@ -141,6 +155,16 @@ public class MainController {
         }
         sapiService.save(sapiDto);
         return "redirect:/sapi?success";
+    }
+
+    @PostMapping("/sapi/edit/{id}")
+    public String editDataSapiPost(@PathVariable Long id, @ModelAttribute("sapi") @Validated SapiDto sapiDto,
+                                  BindingResult result, Principal principal) throws Exception {
+//        sapiDto.setTanggalTulis(new Date(System.currentTimeMillis()));
+        System.out.println((new Date(System.currentTimeMillis())).toString());
+        System.out.println(sapiDto);
+        sapiService.edit(sapiDto, id);
+        return "redirect:/sapi/" + id.toString() + "?editsuccess";
     }
 
     @GetMapping("/penyakit/delete")

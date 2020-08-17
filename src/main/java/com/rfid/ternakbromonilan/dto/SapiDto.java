@@ -5,6 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.sql.Date;
 
 public class SapiDto {
+    private Long id_temp;
     private Long nomorSapi;
     private String nomorRegistrasiTernak;
     private Date tanggalTulis;
@@ -85,6 +86,14 @@ public class SapiDto {
 
     public void setImageFile(MultipartFile imageFile) {
         this.imageFile = imageFile;
+    }
+
+    public Long getId_temp() {
+        return id_temp;
+    }
+
+    public void setId_temp(Long id_temp) {
+        this.id_temp = id_temp;
     }
 
     @Override

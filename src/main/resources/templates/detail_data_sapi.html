@@ -49,11 +49,13 @@
 <br>
 <br>
 <div class="container">
-    <h1 class="text-center">Detail Data Sapi <span th:text="${id}"> </span></h1>
+    <h1 class="text-center">Detail Data Sapi Nomor :<span th:text="${sapi.getNomorSapi()}"> </span></h1>
 </div>
 <br>
 <br>
-
+<div class="container justify-content-center" th:if="${param.editsuccess}">
+    <div class="alert alert-info text-center">Data sapi berhasil diubah.</div>
+</div>
 <!--Detail data sapi-->
 <div class="container">
     <p style="text-align: center"> <img class="card-img-top align-content-center" th:src="'data:image/jpeg;base64,' + ${sapi.getImageStringEncoded()}" style="width: 30%"> </p>
@@ -64,8 +66,12 @@
     <p>Jenis Sapi : <span th:text="${sapi.getJenisSapi()}"></span></p>
     <p>Jenis Kelamin Sapi : <span th:text="${sapi.getJenisKelamin()}"></span></p>
     <p>Umur Sapi : <span th:text="${sapi.getUmurSapi()}"></span></p>
-</div>
 
+    <div class="form-group col-sm-2">
+        <a class="form-control btn btn-primary" th:href="@{/sapi/add?id=} + ${sapi.getId()}">Ubah data sapi</a>
+    </div>
+</div>
+<br>
 
 <div class = "container">
     <!--    Kode Straw Semen-->

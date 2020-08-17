@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.awt.print.Pageable;
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -38,6 +39,23 @@ public class SapiService {
         sapi.setNomorRegistrasiTernak(sapiDto.getNomorRegistrasiTernak());
         sapi.setTanggalLahir(sapiDto.getTanggalLahir());
         sapi.setTanggalTulis(sapiDto.getTanggalTulis());
+        sapiRepository.save(sapi);
+        return sapi;
+    }
+
+    public Sapi edit(SapiDto sapiDto, Long id) throws IOException {
+        Sapi sapi = sapiRepository.findById(id).get();
+        System.out.println(sapi);
+        if (sapiDto.getImageFile() != null){
+            sapi.setImage(sapiDto.getImageFile().getBytes());
+        }
+        sapi.setNomorSapi(sapiDto.getNomorSapi());
+        sapi.setJenisKelamin(sapiDto.getJenisKelamin());
+        sapi.setJenisSapi(sapiDto.getJenisSapi());
+        sapi.setNamaPemilik(sapiDto.getNamaPemilik());
+        sapi.setNomorRegistrasiTernak(sapiDto.getNomorRegistrasiTernak());
+        sapi.setTanggalLahir(sapiDto.getTanggalLahir());
+//        sapi.setTanggalTulis(sapiDto.getTanggalTulis());
         sapiRepository.save(sapi);
         return sapi;
     }
