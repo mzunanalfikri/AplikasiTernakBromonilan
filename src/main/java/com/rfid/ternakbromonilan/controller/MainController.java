@@ -136,6 +136,9 @@ public class MainController {
         sapiDto.setTanggalTulis(new Date(System.currentTimeMillis()));
         System.out.println((new Date(System.currentTimeMillis())).toString());
         System.out.println(sapiDto);
+        if (!sapiRepository.findAllByNomorSapi(sapiDto.getNomorSapi()).isEmpty()){
+            return "redirect:/sapi?datasudahada";
+        }
         sapiService.save(sapiDto);
         return "redirect:/sapi?success";
     }

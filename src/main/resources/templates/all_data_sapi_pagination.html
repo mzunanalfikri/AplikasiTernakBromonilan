@@ -21,12 +21,16 @@
 <br>
 <br>
 <div class="container">
-    <h1 class="text-center">Data Sapi Ternak Bromonilan</h1>
+    <h1 class="text-center">Data Sapi Ngudimulyo</h1>
 </div>
 <br>
 
 <div class="container justify-content-center" th:if="${param.success}">
     <div class="alert alert-info">Data Sapi Berhasil Ditambah.</div>
+</div>
+
+<div class="container justify-content-center" th:if="${param.datasudahada}">
+    <div class="alert alert-info">Data sapi gagal ditambah, nomor sapi sudah ada.</div>
 </div>
 
 <div class="container justify-content-center" th:if="${param.deletesuccess}">
